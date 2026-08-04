@@ -1,0 +1,7 @@
+# Enterprise PPM Platform — dependencies
+#
+# This project intentionally has ZERO third-party dependencies.
+# It runs on the Python 3.9+ standard library alone (http.server, sqlite3,
+# hashlib, json, ...), so it works fully offline with no `pip install` step.
+#
+# Just run:  python3 app.py

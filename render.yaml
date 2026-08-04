@@ -1,0 +1,28 @@
+# Render.com Blueprint for the Enterprise PPM Platform.
+#
+# In Render:  New +  ->  Blueprint  ->  select the repo containing this file.
+# Render reads this file, builds the Docker image, attaches a persistent disk for
+# the database, and asks you to type a strong admin password.
+#
+# NOTE: a persistent disk (so your data is preserved) requires a PAID instance.
+# The Starter instance is $7/month; the 1 GB disk adds about $0.25/month. The
+# free tier CANNOT keep data (it has no disk and sleeps after 15 min), so use
+# Starter for real use.
+services:
+  - type: web
+    name: ppm-platform
+    runtime: docker
+    plan: starter               # required for the persistent disk below
+    region: frankfurt           # closest Render region to Croatia / EU
+    healthCheckPath: /
+    disk:
+      name: ppm-data
+      mountPath: /var/data      # the SQLite database lives here and persists
+      sizeGB: 1
+    envVars:
+      - key: PPM_ADMIN_PASSWORD  # you type this in the Render dashboard (kept secret)
+        sync: false
+      - key: PPM_DATA_DIR
+        value: /var/data
+      - key: PPM_SHARED
+        value: "0"
